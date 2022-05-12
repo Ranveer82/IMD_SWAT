@@ -97,8 +97,8 @@ def swat_wgnIMD(locs,start_year,end_year):
     for y in years:
         if os.path.exists(os.getcwd()+'/rain/'+str(y)+'.grd'):
             print('Rain data for year %i already exists'%y)
-            data_rain = imd.open_data('rain', y, y,'yearwise', os.getcwd()+'/rain/')
-            print('Data read sucessfull')
+            # data_rain = imd.open_data('rain', y, y,'yearwise', os.getcwd()+'/rain/')
+            # print('Data read sucessfull')
         else:
             print('downloading the gridded data from server')
             data_rain =imd.get_data('rain', y, y, fn_format='yearwise')
@@ -106,8 +106,8 @@ def swat_wgnIMD(locs,start_year,end_year):
     for y in years:
         if os.path.exists(os.getcwd()+'/tmin/'+str(y)+'.GRD'):
             print('Tmin data for year %i already exists'%y)
-            data_tmin = imd.open_data('tmin', y, y,'yearwise', os.getcwd()+'/tmin/')
-            print('Data read sucessfull')
+            # data_tmin = imd.open_data('tmin', y, y,'yearwise', os.getcwd()+'/tmin/')
+            # print('Data read sucessfull')
         else:
             print('downloading the gridded data from server')
             data_tmin =imd.get_data('tmin', y, y, fn_format='yearwise')
@@ -115,11 +115,16 @@ def swat_wgnIMD(locs,start_year,end_year):
     for y in years:
         if os.path.exists(os.getcwd()+'/tmax/'+str(y)+'.GRD'):
             print('Tmax data for year %i already exists'%y)
-            data_tmax = imd.open_data('tmax', y, y,'yearwise', os.getcwd()+'/tmax/')
-            print('Data read sucessfull')
+            # data_tmax = imd.open_data('tmax', y, y,'yearwise', os.getcwd()+'/tmax/')
+            # print('Data read sucessfull')
         else:
             print('downloading the gridded data from server')
             data_tmax =imd.get_data('tmax', y, y, fn_format='yearwise')
+            
+    data_rain = imd.open_data('rain', start_yr, end_yr,'yearwise', os.getcwd()+'/rain/')
+    data_tmin = imd.open_data('tmin', start_yr, end_yr,'yearwise', os.getcwd()+'/tmin/')
+    data_tmax = imd.open_data('tmax', start_yr, end_yr,'yearwise', os.getcwd()+'/tmax/')
+    print('Data read sucessfull')
 #### binary to csv. 
     os.chdir(c_dir+'/Scraps')    
     for pos in loc:
