@@ -219,9 +219,9 @@ def swat_nasap(locs,start_year,end_year):
     
     for xy in loc:
         [lt,ln] =xy
-        api_link_r = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=RE&longitude='+str(lt)+'00&latitude='+str(ln)+'&start='+str(2021)+'0101&end='+str(y2)+'0430&format=CSV'
-        api_link_tmin = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MIN&community=RE&longitude='+str(lt)+'00&latitude='+str(ln)+'&start='+str(2021)+'0101&end='+str(y2)+'0430&format=CSV'
-        api_link_tmx = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MAX&community=RE&longitude='+str(lt)+'00&latitude='+str(ln)+'&start='+str(2021)+'0101&end='+str(y2)+'0430&format=CSV'
+        api_link_r = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=RE&longitude='+str(ln)+'00&latitude='+str(lt)+'&start='+str(2021)+'0101&end='+str(y2)+'0430&format=CSV'
+        api_link_tmin = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MIN&community=RE&longitude='+str(ln)+'00&latitude='+str(lt)+'&start='+str(2021)+'0101&end='+str(y2)+'0430&format=CSV'
+        api_link_tmx = 'https://power.larc.nasa.gov/api/temporal/daily/point?parameters=T2M_MAX&community=RE&longitude='+str(ln)+'00&latitude='+str(lt)+'&start='+str(2021)+'0101&end='+str(y2)+'0430&format=CSV'
         
         res_r = requests.get(api_link_r)
         res_tmin = requests.get(api_link_tmin)
