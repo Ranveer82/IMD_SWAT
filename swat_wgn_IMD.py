@@ -70,7 +70,7 @@ def swat_wgnIMD(locs,start_year,end_year):
 
     Returns
     -------
-    None.
+    List of SWAT files created. (currently Unused)
 
     '''
     loc = locs
