@@ -9,9 +9,7 @@ Title: IMDSWAT 2.1
 
 Description:
     the program provide easy one stop solution to download the 2D gridded weather data from 
-    IMD and reformat it for SWAT Inputs. upto 2020 it uses IMD 2D gridded data after that the
-    Predicted data from NASA Power is used. IMD Data from 2021 is not working properly with 
-    IMDLIB Modeule.
+    IMD and reformat it for SWAT Inputs. 
     
     Change the parameters in the bottom  section. The SWAT inputs will be created 
     the /IMDSWAT folder.
@@ -70,7 +68,7 @@ def swat_wgnIMD(locs,start_year,end_year):
 
     Returns
     -------
-    List of SWAT files created. (currently Unused)
+    None.
 
     '''
     loc = locs
@@ -135,6 +133,14 @@ def swat_wgnIMD(locs,start_year,end_year):
 #### reading the csv
     swat_dir = c_dir+'/IMDSWAT'
     swat_files=[]
+    
+    ### Station file
+    f_s = open(swat_dir+'/'+'pcp.txt','w')
+    f_st = open(swat_dir+'/'+'temp.txt','w')
+    f_s.write('ID'+','+'NAME'+','+'LAT'+','+'LONG'+','+'ELEVATION'+'\n')
+    f_st.write('ID'+','+'NAME'+','+'LAT'+','+'LONG'+','+'ELEVATION'+'\n')
+    
+    a = 1
     for pos in loc:
   #file names
       [lt,ln] = pos
@@ -166,29 +172,34 @@ def swat_wgnIMD(locs,start_year,end_year):
       f_t.write(str(data_tx.iloc[0,0]).replace('-','')+'\n')
       for i in range(len(data_tx)):
           f_t.write(str(data_tx.iloc[i,1])+','+str(data_tn.iloc[i,1])+'\n')
+          
+      [lt,ln] = pos
+      f_s.write(str(a)+','+fnr[0:-4]+','+str(lt)+','+str(ln)+','+'%0.2f'%0.00+'\n')
+      f_st.write(str(a)+','+'t_'+fntx[4:-4]+','+str(lt)+','+str(ln)+','+'%0.2f'%0.00+'\n')
+      a+=1
     
       print('Swat files created')
       f_r.close()
       f_t.close()
 
 ### Station file
-    f_s = open(swat_dir+'/'+'pcp.txt','w')
-    f_st = open(swat_dir+'/'+'temp.txt','w')
-    f_s.write('ID'+','+'NAME'+','+'LAT'+','+'LONG'+','+'ELEVATION'+'\n')
-    f_st.write('ID'+','+'NAME'+','+'LAT'+','+'LONG'+','+'ELEVATION'+'\n')
+    # f_s = open(swat_dir+'/'+'pcp.txt','w')
+    # f_st = open(swat_dir+'/'+'temp.txt','w')
+    # f_s.write('ID'+','+'NAME'+','+'LAT'+','+'LONG'+','+'ELEVATION'+'\n')
+    # f_st.write('ID'+','+'NAME'+','+'LAT'+','+'LONG'+','+'ELEVATION'+'\n')
 
-    i =1
-    for pos in loc:
-        [lt,ln] = pos
-        f_s.write(str(i)+','+fnr[0:-4]+','+str(lt)+','+str(ln)+','+'%0.2f'%0.00+'\n')
-        f_st.write(str(i)+','+'t_'+fntx[4:-4]+','+str(lt)+','+str(ln)+','+'%0.2f'%0.00+'\n')
-        i+=1
+    # i =1
+    # for pos in loc:
+    #     [lt,ln] = pos
+    #     f_s.write(str(i)+','+fnr[0:-4]+','+str(lt)+','+str(ln)+','+'%0.2f'%0.00+'\n')
+    #     f_st.write(str(i)+','+'t_'+fntx[4:-4]+','+str(lt)+','+str(ln)+','+'%0.2f'%0.00+'\n')
+    #     i+=1
 
     f_s.close()
     f_st.close()
 
     os.chdir(c_dir)
-    shutil.rmtree(c_dir+'/Scraps')
+    # shutil.rmtree(c_dir+'/Scraps')
     return swat_files
 
 def swat_nasap(locs,start_year,end_year):
@@ -290,10 +301,10 @@ def swat_nasap(locs,start_year,end_year):
 
 ############### Change the parameters here #############
 # Change parameters here as per requirenment
-start_yr = 2000
-end_yr = 2022
+start_yr = 1990
+end_yr = 2020
 
-grid_locations = [[25,82.25],[25,82.5],[25,82.75],[25,83]]
+grid_locations = [[25,82.25],[25,82.5]]
 
 ###########################################################
 if end_yr <= 2020:
